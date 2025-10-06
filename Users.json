@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "Username": "alice",
+      "Password": "3bc51062973c458d5d96db9327b8c44b9b96744a1f6f5f9a6b6de5a3d8ddf47a",
+      "Email": "alice123@xyz.com"
+    },
+    {
+      "Username": "bob",
+      "Password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbddfaaa7b0a0ff7fe716",
+      "Email": "bob456@abc.com"
+    }
+  ]
+}
