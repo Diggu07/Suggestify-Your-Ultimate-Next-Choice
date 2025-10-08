@@ -1,6 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include<algorithm>
 #include "Leaderboard.h"
 #include "json.hpp"
 using json=nlohmann::json;
@@ -75,4 +76,121 @@ void Leaderboard::save(){
         cerr<<"Unknown Error Occurred!"<<endl;
     }
     
+}
+
+void Leaderboard::update(const string& uname,int score){
+    bool found=false;
+    for(auto& entry: entries){
+        if(entry.name==uname){
+            found=true;
+            entry.score=max(entry.score,score);
+            break;
+        }
+    }
+    if (!found) {
+        entries.push_back({uname, score});
+    }
+    sortDescending();
+    save();
+}
+
+void Leaderboard::sortDescending(){
+    if(isEmpty()){
+        return;
+    }
+    sort(entries.begin(),entries.end(),
+            [](const Entry&e1,const Entry& e2){
+                return e1.score>e2.score;
+            });
+}
+
+void Leaderboard::display(){
+    if(isEmpty()){
+        return;
+    }
+    int i=1;
+    cout<<left<<setw(10)<<"RANK"
+        <<setw(30)<<"NAME"
+        <<setw(15)<<"SCORE"<<endl;
+    cout<<string(55,'-')<<endl;
+    for(auto entry:entries){
+        cout<<setw(10)<<i++
+            <<setw(30)<<entry.name
+            <<setw(15)<<entry.score<<endl;
+    }
+}
+
+void Leaderboard::showTop10(){
+    if(isEmpty()){
+        return;
+    }
+    int limit=min(10,(int)(entries.size()));
+    cout<<left<<setw(10)<<"RANK"
+        <<setw(30)<<"NAME"
+        <<setw(15)<<"SCORE"<<endl;
+    cout<<string(55,'-')<<endl;
+
+    for(int i=0;i<limit;i++){
+        cout<<setw(10)<<i+1
+            <<setw(30)<<entries[i].name
+            <<setw(15)<<entries[i].score<<endl;
+    }
+}
+
+bool Leaderboard::isEmpty(){
+    if(entries.empty()){
+        cout<<"!!Leaderboard is Empty!!"<<endl;
+        return true;
+    }
+    return false;
+}
+
+bool Leaderboard::checkUser(const string& uname){
+    if(isEmpty()){
+        return false;
+    }
+    for(auto entry:entries){
+        if(entry.name==uname)
+            return true;
+    }
+    return false;
+}
+
+void Leaderboard::getUserScore(const string& uname){
+    if(!checkUser(uname)){
+        cout<<"User does not exist!!"<<endl;
+        return;
+    }
+    for(auto entry:entries){
+        if(entry.name==uname){
+            cout<<"Username:"<<uname<<setw(10)
+                <<"Score:"<<entry.score<<endl;
+            break;
+        }
+    }
+}
+
+void Leaderboard::getUserRank(const string& uname){
+    if(!checkUser(uname)){
+        cout<<"User does not exist!!"<<endl;
+        return;
+    }
+    for(size_t i=0;i<entries.size();i++){
+        if(entries[i].name==uname){
+            cout<<setw(10)<<i+1
+                <<setw(30)<<entries[i].name
+                <<setw(15)<<entries[i].score<<endl;
+            break;
+        }
+    }
+}
+
+void Leaderboard::removeUser(const string& uname){
+    entries.erase(
+        remove_if(entries.begin(),entries.end(),
+            [&](Entry &entry){
+                return entry.name==uname;
+            }),entries.end());
+
+    save();
 }
