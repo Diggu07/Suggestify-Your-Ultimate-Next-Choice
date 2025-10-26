@@ -1,14 +1,64 @@
 {
-  "users": [
-    {
-      "Username": "alice",
-      "Password": "3bc51062973c458d5d96db9327b8c44b9b96744a1f6f5f9a6b6de5a3d8ddf47a",
-      "Email": "alice123@xyz.com"
-    },
-    {
-      "Username": "bob",
-      "Password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbddfaaa7b0a0ff7fe716",
-      "Email": "bob456@abc.com"
-    }
-  ]
+    "users": [
+        {
+            "Email": "harry@xyz.com",
+            "Password": "3bc51062973c458d5d96db9327b8c44b9b96744a1f6f5f9a6b6de5a3d8ddf47a",
+            "Username": "harry"
+        },
+        {
+            "Email": "steverogers456@abc.com",
+            "Password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbddfaaa7b0a0ff7fe716",
+            "Username": "steverogers"
+        },
+        {
+            "Email": "digvijay@example.com",
+            "Password": "4ba56f2b99980facaad1fa34bbf44701e1ef2bdd612ad3ffdec035dc2de29a3b",
+            "Username": "Digvijay"
+        },
+        {
+            "Email": "testuser@example.com",
+            "Password": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+            "Username": "testuser"
+        },
+        {
+            "Email": "dhoni@example.com",
+            "Password": "9891a6ac43afae14b28606288a62249d820aff1754881ba72526bd524f51910f",
+            "Username": "dhoni"
+        },
+        {
+            "Email": "virat@123.com",
+            "Password": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+            "Username": "virat"
+        },
+        {
+            "Email": "diggu@example.com",
+            "Password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+            "Username": "diggu"
+        },
+        {
+            "Email": "thor@example.com",
+            "Password": "9891a6ac43afae14b28606288a62249d820aff1754881ba72526bd524f51910f",
+            "Username": "thor"
+        },
+        {
+            "Email": "ironman@example.com",
+            "Password": "e9cee71ab932fde863338d08be4de9dfe39ea049bdafb342ce659ec5450b69ae",
+            "Username": "ironman"
+        },
+        {
+            "Email": "shreyansh@example.com",
+            "Password": "8cb2237d0679ca88db6464eac60da963455139645edb6f0c1b1b9d3f5f5f5f5",
+            "Username": "shreyansh"
+        },
+        {
+            "Email": "rehan@example.com",
+            "Password": "8e06d40e94f5c8cae38c9f5d35bf420ae9a5d72b3d2e0ef582032770aa610a73",
+            "Username": "rehan"
+        },
+        {
+            "Email": "ayush@example.com",
+            "Password": "52be1c87d93a077dbd533f87fc2611cca224bd8d42ae35b09f0ff7131bc4dda4",
+            "Username": "ayush"
+        }
+    ]
 }

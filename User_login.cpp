@@ -23,7 +23,7 @@ string SHA_256(const string &str) {
     return ss.str();
 }
 
-int exists(string& user_name,string& user_pass){
+int exists(const string& user_name,const string& user_pass){
     ifstream user_get("Users.json");
     if(!user_get){
         cout<<"ERROR OPENING FILE!";
@@ -40,7 +40,7 @@ int exists(string& user_name,string& user_pass){
     return 0;
 }
 
-void registerUser(string& user_name,string& user_pass){
+void registerUser(const string& user_name,const string& user_pass,const string& email){
     json data;
     ifstream user_get("Users.json");
     if(!user_get){
@@ -62,11 +62,10 @@ void registerUser(string& user_name,string& user_pass){
     user_write.close();
 }
 
-void login(string& user_name,string& user_pass){
+void login(const string& user_name,const string& user_pass){
     if(exists(user_name,user_pass)){
         cout<<"Login Successful!!";
         return;
     }
-    cout<<"Wrong Username or/and Password! Please register.";
-    registerUser(user_name,user_pass);
+    cout<<"Wrong Username or/and Password! Please register."<<endl;
 }

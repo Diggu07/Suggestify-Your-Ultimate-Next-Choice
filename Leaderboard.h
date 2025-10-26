@@ -13,8 +13,9 @@ class Leaderboard{
         vector<Entry> entries;
         string filename;
     public:
-        Leaderboard(const string& file){}
-        void load();
+        Leaderboard(const string& file);
+        void load(bool silent=false);
+        void updateUsername(const std::string& oldName, const std::string& newName);
         void save();
         void update(const string& uname,int score);
         void sortDescending();

@@ -1,22 +1,46 @@
 [
     {
-        "Username": "player1",
-        "Score": 1500
+        "Score": 12000,
+        "Username": "virat"
     },
     {
-        "Username": "champion99",
-        "Score": 2500
+        "Score": 11000,
+        "Username": "dhoni"
     },
     {
-        "Username": "gamerX",
-        "Score": 1800
+        "Score": 10500,
+        "Username": "Digvijay"
     },
     {
-        "Username": "newbie42",
-        "Score": 900
+        "Score": 9500,
+        "Username": "shreyansh"
     },
     {
-        "Username": "proPlayer",
-        "Score": 2100
+        "Score": 8000,
+        "Username": "Diggu"
+    },
+    {
+        "Score": 5500,
+        "Username": "rehan"
+    },
+    {
+        "Score": 4700,
+        "Username": "ayush"
+    },
+    {
+        "Score": 3350,
+        "Username": "ironman"
+    },
+    {
+        "Score": 1500,
+        "Username": "thor"
+    },
+    {
+        "Score": 1200,
+        "Username": "steverogers"
+    },
+    {
+        "Score": 1100,
+        "Username": "harry"
     }
 ]

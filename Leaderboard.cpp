@@ -8,10 +8,10 @@ using json=nlohmann::json;
 
 
 Leaderboard::Leaderboard(const string& file):filename(file){
-    load();
+    load(true);
 }
 
-void Leaderboard::load(){
+void Leaderboard::load(bool silent){
     ifstream getboard(filename);
     if(!getboard){
         cout<<"ERROR OPENING FILE!!"<<endl;
@@ -26,7 +26,8 @@ void Leaderboard::load(){
         }
         getboard.close();
         sortDescending();
-        cout<<"Leaderboard Loaded Successfully!!"<<endl;
+        if(!silent)
+            cout<<"Leaderboard Loaded Successfully!!"<<endl;
     }
     catch (const nlohmann::json::parse_error& e) {
         cerr << "JSON parse error: " << e.what() << endl;
@@ -43,6 +44,15 @@ void Leaderboard::load(){
     catch (...) {
         cerr << "Unknown error occurred." << endl;
     }
+}
+
+void Leaderboard::updateUsername(const std::string& oldName, const std::string& newName){
+    for (auto& entry : entries) {
+        if (entry.name == oldName) {
+            entry.name = newName;
+        }
+    }
+    save();
 }
 
 void Leaderboard::save(){
@@ -164,7 +174,7 @@ void Leaderboard::getUserScore(const string& uname){
     for(auto entry:entries){
         if(entry.name==uname){
             cout<<"Username:"<<uname<<setw(10)
-                <<"Score:"<<entry.score<<endl;
+                <<endl<<"Score:"<<entry.score<<endl;
             break;
         }
     }

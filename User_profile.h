@@ -4,9 +4,10 @@
 using json=nlohmann::json;
 using namespace std;
 
-void viewProfile(const json& user);
-void editProfile(json& user);
-void update_password(json &user);
-void delete_account(json &user);
+string currentDateTime();
+void viewProfile(const string& filename, const string& username);
+void editProfile(const string& filename,string& username);
+void update_password(const string& filename, const string& username);
+void delete_account(const string& filename, const string& username);
 
 #endif

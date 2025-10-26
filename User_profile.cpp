@@ -4,7 +4,10 @@
 #include<iomanip>
 #include "User_profile.h"
 #include "User_login.h"
+#include "Leaderboard.h"
 using namespace std;
+
+Leaderboard lb("Leaderboard.json");
 
 string currentDateTime() {
     time_t now = time(0);
@@ -47,7 +50,7 @@ void viewProfile(const string& filename, const string& username){
     }
 }
 
-void editProfile(const string& filename, const string& username){
+void editProfile(const string& filename,string& username){
     ifstream user_get(filename);
     if(!user_get){
         cout<<"Error Opening File!!"<<endl;
@@ -73,6 +76,9 @@ void editProfile(const string& filename, const string& username){
                     cout << "Enter Updated Username: ";
                     getline(cin, new_username);
                     user["Username"] = new_username;
+                    lb.load(true);
+                    lb.updateUsername(username, new_username);
+                    username = new_username;
                 } else if(choice == 2){
                     string email;
                     cout << "Enter Updated Email: ";
@@ -161,6 +167,7 @@ void delete_account(const string& filename,const string& username){
         if((*itr)["Username"]==username){
             cout<<"Enter Password:";
             getline(cin,pass);
+            pass.erase(pass.find_last_not_of(" \n\r\t")+1);
             if(SHA_256(pass) == (*itr)["Password"]){
                 data["users"].erase(itr);
                 deleted=true;

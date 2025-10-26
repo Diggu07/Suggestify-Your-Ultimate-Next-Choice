@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build All Modules with Boost",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-I${workspaceFolder}/vcpkg/installed/x64-linux/include",
+                "-L${workspaceFolder}/vcpkg/installed/x64-linux/lib",
+                "test.cpp",
+                "User_login.cpp",
+                "User_profile.cpp",
+                "Leaderboard.cpp",
+
+
+                // Add more .cpp files here as needed
+
+
+                "-o",
+                "main",
+                "-lboost_uuid",
+                "-lboost_system",
+                "-lpthread"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}
