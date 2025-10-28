@@ -45,6 +45,7 @@ int main() {
                 cout << "Registration successful!\n";
             } else {
                 cout << "Please try logging in again.\n";
+                return 0;
             }
         } else {
             cout << "Login successful!\n";

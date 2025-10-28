@@ -40,7 +40,7 @@ int exists(const string& user_name,const string& user_pass){
     return 0;
 }
 
-void registerUser(const string& user_name,const string& user_pass,const string& email){
+void registerUser(const string& user_name,const string& user_pass){
     json data;
     ifstream user_get("Users.json");
     if(!user_get){

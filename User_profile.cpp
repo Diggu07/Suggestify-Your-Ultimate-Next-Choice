@@ -79,6 +79,8 @@ void editProfile(const string& filename,string& username){
                     lb.load(true);
                     lb.updateUsername(username, new_username);
                     username = new_username;
+                    lb.save();
+                    lb.load(true);
                 } else if(choice == 2){
                     string email;
                     cout << "Enter Updated Email: ";
