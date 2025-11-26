@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Suggestify</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="bg-[#1a2332] text-white font-['Poppins']">
+
+    <div class="min-h-screen p-4 md:p-8 max-w-7xl mx-auto">
+
+        <!-- PROFILE HEADER -->
+        <div class="bg-[#283142] rounded-2xl p-8 mb-6">
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+
+                <!-- Avatar -->
+                <div class="relative">
+                    <div id="profileInitials"
+                        class="h-32 w-32 rounded-full bg-gradient-to-br from-orange-400 to-orange-500 
+                               flex items-center justify-center text-5xl font-bold">
+                        --
+                    </div>
+
+                    <button id="btnEditAvatar"
+                        class="absolute bottom-0 right-0 h-10 w-10 rounded-full bg-[#3d4757] hover:bg-[#4a5568] 
+                               flex items-center justify-center transition-colors">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- USER INFO -->
+                <div class="flex-1 text-center md:text-left">
+                    <h1 id="profileUsername" class="text-4xl font-bold mb-2">Loading...</h1>
+                    <p id="profileEmailTop" class="text-gray-400 text-lg mb-6">—</p>
+
+                    <!-- Stats (CENTERED, 3 ONLY) -->
+                    <div class="grid grid-cols-3 gap-6 text-center">
+
+                        <!-- Completed -->
+                        <div>
+                            <div class="flex items-center justify-center gap-2 mb-2">
+                                <svg class="h-5 w-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span id="statCompleted" class="text-3xl font-bold">0</span>
+                            </div>
+                            <p class="text-sm text-gray-400">Completed</p>
+                        </div>
+
+                        <!-- Favorites -->
+                        <div>
+                            <div class="flex items-center justify-center gap-2 mb-2">
+                                <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 
+                                        2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 
+                                        14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 
+                                        3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                </svg>
+                                <span id="statFav" class="text-3xl font-bold">0</span>
+                            </div>
+                            <p class="text-sm text-gray-400">Favorites</p>
+                        </div>
+
+                        <!-- Watchlist -->
+                        <div>
+                            <div class="flex items-center justify-center gap-2 mb-2">
+                                <svg class="h-5 w-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 5v14l7-4 7 4V5a2 2 0 00-2-2H7a2 2 0 00-2 2z" />
+                                </svg>
+                                <span id="statWatchlist" class="text-3xl font-bold">0</span>
+                            </div>
+                            <p class="text-sm text-gray-400">Watchlist</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT GRID -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+
+            <!-- ACCOUNT SECTION -->
+            <div class="bg-[#283142] rounded-2xl p-6">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-10 w-10 rounded-full bg-orange-500 flex items-center justify-center">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 
+                                00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-semibold">Account Information</h2>
+                </div>
+
+                <div class="space-y-4 mb-6">
+                    <div class="bg-[#1e2737] rounded-xl p-4">
+                        <span class="text-sm text-orange-400 font-medium">Full Name</span>
+                        <p id="profileName" class="font-semibold text-white mt-1"></p>
+                    </div>
+
+                    <div class="bg-[#1e2737] rounded-xl p-4">
+                        <span class="text-sm text-orange-400 font-medium">Email</span>
+                        <p id="profileEmail" class="font-semibold text-white mt-1"></p>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button id="btnEditProfile"
+                        class="flex-1 bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-medium">
+                        Edit Profile
+                    </button>
+
+                    <button id="btnChangePass"
+                        class="flex-1 bg-[#1e2737] hover:bg-[#2a3447] py-3 rounded-xl font-medium">
+                        Change Password
+                    </button>
+                </div>
+            </div>
+
+            <!-- WATCHLIST SECTION -->
+            <div class="bg-[#283142] rounded-2xl p-6">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 5v14l7-4 7 4V5a2 2 0 00-2-2H7a2 2 0 
+                                00-2 2z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-semibold">Watchlist</h2>
+                </div>
+
+                <div id="watchlistContainer"
+                    class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <!-- Movies added dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ACHIEVEMENTS -->
+        <div class="bg-[#283142] rounded-2xl p-6 mt-6">
+            <h2 class="text-xl font-semibold mb-4">Achievements</h2>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4" id="achievementGrid">
+                <!-- Dynamic achievements -->
+            </div>
+        </div>
+
+        <!-- BACK -->
+        <a href="home.html"
+            class="fixed bottom-8 left-8 flex items-center gap-2 px-6 py-4 bg-white/5 hover:bg-white/10 
+               border border-white/10 rounded-xl transition-colors shadow-lg">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            <span class="font-medium">Back to Home</span>
+        </a>
+
+        <script src="../js/common.js"></script>
+        <script src="../js/profile.js"></script>
+    </div>
+
+</body>
+</html>

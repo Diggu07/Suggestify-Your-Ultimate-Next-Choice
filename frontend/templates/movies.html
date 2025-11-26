@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies - Suggestify</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="bg-[hsl(220,26%,14%)] text-white font-['Poppins']">
+    <div class="min-h-screen p-4 md:p-8">
+        <div class="max-w-7xl mx-auto">
+
+            <!-- Header -->
+            <header class="bg-[hsl(220,20%,20%)]/60 backdrop-blur-lg rounded-2xl px-6 py-4 mb-8 shadow-lg">
+                <nav class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="h-12 w-12 rounded-full bg-[hsl(25,95%,65%)] flex items-center justify-center">
+                            <span class="text-2xl font-bold">S</span>
+                        </div>
+                        <h1 class="text-xl font-semibold">Suggestify</h1>
+                    </div>
+
+                    <div class="relative">
+                        <button id="profileBtn" class="flex items-center gap-3 hover:bg-[hsl(220,15%,30%)]/20 rounded-full px-4 py-3 transition-colors">
+                            <div class="h-10 w-10 rounded-full bg-[hsl(25,95%,65%)] flex items-center justify-center">
+                                <span class="font-semibold" id="profileInitials">U</span>
+                            </div>
+                            <span class="font-medium" id="profileName">User</span>
+
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+
+                        <div
+                            id="dropdownMenu"
+                            class="hidden absolute right-0 mt-2 w-56 bg-[hsl(220,20%,20%)] border border-[hsl(220,15%,35%)]/50 rounded-lg shadow-xl p-2 z-50"
+                        >
+                            <a href="profile.html"
+                               class="block px-2 py-2 hover:bg-[hsl(220,15%,30%)]/20 rounded-lg cursor-pointer transition-colors">
+                                View Profile
+                            </a>
+
+                            <div class="border-t border-[hsl(220,15%,35%)]/30 my-1"></div>
+
+                            <a href="login_page.html"
+                               class="block px-2 py-2 hover:bg-red-500/20 text-red-500 rounded-lg cursor-pointer transition-colors">
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+            <!-- Page Title -->
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h1 class="text-5xl font-bold mb-2">Explore Movies</h1>
+                    <p class="text-lg text-[hsl(220,10%,70%)]">
+                        Discover amazing content tailored to your taste
+                    </p>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="relative mb-8">
+                <svg class="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[hsl(220,10%,70%)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+
+                <input
+                    id="searchInput"
+                    type="text"
+                    placeholder="Search for movies..."
+                    class="pl-12 h-14 w-full bg-[hsl(220,15%,30%)]/40 border-none text-white
+                           placeholder:text-[hsl(220,10%,70%)]/60 rounded-2xl px-3 py-2
+                           focus:outline-none focus:ring-2 focus:ring-[hsl(25,95%,65%)]"
+                />
+            </div>
+
+            <div class="flex gap-6">
+
+                <!-- Sidebar: Genre List (dynamic) -->
+                <aside class="w-64 flex-shrink-0">
+  <div class="bg-[hsl(220,20%,20%)]/60 backdrop-blur-lg rounded-2xl p-6 sticky top-8">
+
+    <div class="flex items-center gap-2 mb-6">
+      <div class="h-10 w-10 rounded-full bg-[hsl(25,95%,65%)] flex items-center justify-center">
+        <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+        </svg>
+      </div>
+      <h2 class="text-xl font-semibold">Genres</h2>
+    </div>
+
+    <!-- WRAPPER ADDED HERE -->
+    <div id="genreSidebar" class="max-h-full overflow-hidden">
+      <nav class="space-y-2" id="genreNav"></nav>
+    </div>
+
+  </div>
+</aside>
+
+
+                <!-- Main Content -->
+                <main class="flex-1">
+                    <div class="mb-6">
+                        <h2 class="text-xl font-semibold mb-1">All Results</h2>
+                        <p class="text-[hsl(220,10%,70%)]" id="resultCount">(0 items)</p>
+                    </div>
+
+                    <div
+                        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                        id="moviesGrid">
+                        <!-- Movies inserted dynamically -->
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="../js/common.js"></script>
+    <script src="../js/movies.js"></script>
+</body>
+</html>

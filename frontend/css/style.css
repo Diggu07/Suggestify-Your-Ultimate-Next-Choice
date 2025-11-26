@@ -1,0 +1,409 @@
+/* Suggestify - Complete Styles */
+
+/* CSS Variables */
+:root {
+  --background: 220 26% 14%;
+  --foreground: 0 0% 100%;
+  --primary: 25 95% 65%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 20% 25%;
+  --muted: 220 15% 30%;
+  --muted-foreground: 220 10% 70%;
+  --accent: 45 100% 60%;
+  --border: 220 15% 35%;
+  --navy: 220 26% 14%;
+  --navy-light: 220 20% 20%;
+  --navy-lighter: 220 20% 25%;
+  --orange: 25 95% 65%;
+  --gold: 45 100% 60%;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  line-height: 1.6;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--navy-light));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
+}
+
+/* Utility classes */
+.hidden {
+  display: none !important;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Animation classes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Button hover effects */
+button, a {
+  transition: all 0.3s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Custom switch styling */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 2.75rem;
+  height: 1.5rem;
+  background-color: hsl(var(--muted));
+  border-radius: 9999px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="checkbox"]:checked {
+  background-color: hsl(var(--primary));
+}
+
+input[type="checkbox"]::before {
+  content: '';
+  position: absolute;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: white;
+  border-radius: 50%;
+  top: 0.125rem;
+  left: 0.125rem;
+  transition: transform 0.3s ease;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: translateX(1.25rem);
+}
+
+/* Focus states */
+input:focus,
+button:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 3px solid hsl(var(--muted));
+  border-top: 3px solid hsl(var(--primary));
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Backdrop blur support */
+.backdrop-blur-lg {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.backdrop-blur-xl {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, hsl(var(--orange)), hsl(var(--gold)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom shadows */
+.shadow-custom {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  .container {
+    padding: 0 0.75rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Selection color */
+::selection {
+  background-color: hsl(var(--primary));
+  color: white;
+}
+
+::-moz-selection {
+  background-color: hsl(var(--primary));
+  color: white;
+}
+
+/* Simple toggle switch */
+.toggle-input {
+  display: none;
+}
+
+.toggle-track {
+  position: relative;
+  width: 44px;   /* w-11 */
+  height: 24px;  /* h-6  */
+  border-radius: 9999px;
+  background-color: #4b5563; /* gray-600 */
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  transition: background-color 0.2s ease;
+}
+
+.toggle-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background-color: #ffffff;
+  transform: translateX(0);
+  transition: transform 0.2s ease;
+}
+
+/* Checked state */
+.toggle-input:checked + .toggle-track {
+  background-color: #f97316; /* orange-500 */
+}
+
+.toggle-input:checked + .toggle-track .toggle-thumb {
+  transform: translateX(20px);
+}
+
+/* Achievements badge styling (scoped to achievements section) */
+#achievementsSection .badge-card {
+  position: relative;
+  padding: 0.75rem;
+  overflow: hidden;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#achievementsSection .badge-card > p {
+  /* keep label in DOM but visually hide to match the square icon-only look */
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+#achievementsSection .badge-card svg {
+  height: 48px;
+  width: 48px;
+}
+
+/* Show small level pill if present, keep it compact */
+#achievementsSection .badge-card [class*="text-"] {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  transform: translateZ(0);
+}
+
+/* Locked state: dim and show lock overlay while preserving underlying icon/label */
+#achievementsSection .badge-card.locked {
+  background-color: #2a3447 !important;
+  filter: grayscale(40%) brightness(0.75);
+  cursor: default;
+}
+
+#achievementsSection .badge-card.locked::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(10,15,20,0.25), rgba(10,15,20,0.25));
+  pointer-events: none;
+}
+
+#achievementsSection .badge-card.locked .lock-overlay {
+  display: block;
+}
+
+/* Small lock icon overlay centered */
+.lock-overlay {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255,255,255,0.6);
+  width: 36px;
+  height: 36px;
+}
+
+/* Make the badges more like the image: larger radiused squares with subtle shadows */
+#achievementsSection .badge-card {
+  border-radius: 18px;
+  box-shadow: 0 10px 18px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 640px) {
+  #achievementsSection .badge-card svg {
+    height: 40px;
+    width: 40px;
+  }
+}
+
+
+/* Sidebar scroll fix */
+#genreSidebar {
+  height: calc(100vh - 180px); /* Adjust for your header + padding */
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+#genreNav {
+  padding-right: 4px;
+}
+
+/* Optional scrollbar styling */
+#genreSidebar::-webkit-scrollbar {
+  width: 6px;
+}
+#genreSidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+
+@keyframes bg-pan {
+  0% { transform: scale(1.1) translateX(0); }
+  100% { transform: scale(1.1) translateX(-20px); }
+}
+
+.bg-pan {
+  animation: bg-pan 15s ease-in-out infinite alternate;
+}

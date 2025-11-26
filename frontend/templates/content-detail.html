@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Detail - Suggestify</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body class="bg-[hsl(220,26%,14%)] text-white font-['Poppins']">
+  <div class="min-h-screen p-4 md:p-8">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- HEADER -->
+      <header class="bg-[hsl(220,20%,20%)]/60 backdrop-blur-lg rounded-2xl px-6 py-4 mb-8 shadow-lg">
+        <nav class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="h-12 w-12 rounded-full bg-[hsl(25,95%,65%)] flex items-center justify-center">
+              <span class="text-2xl font-bold">S</span>
+            </div>
+            <h1 class="text-xl font-semibold">Suggestify</h1>
+          </div>
+
+          <div class="relative">
+            <button
+              id="profileBtn"
+              class="flex items-center gap-3 hover:bg-[hsl(220,15%,30%)]/20 rounded-full px-4 py-3 transition-colors"
+            >
+              <div class="h-10 w-10 rounded-full bg-[hsl(25,95%,65%)] flex items-center justify-center">
+                <span class="font-semibold">AM</span>
+              </div>
+              <span class="font-medium">User</span>
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      <!-- CONTENT SECTION -->
+      <div class="flex flex-col lg:flex-row gap-8 mb-8">
+
+        <!-- POSTER -->
+        <div class="w-full lg:w-96 flex-shrink-0">
+          <div id="posterBox"
+            class="bg-[hsl(220,20%,20%)] rounded-2xl overflow-hidden aspect-[2/3] bg-[hsl(220,15%,30%)]/40 flex items-center justify-center relative shadow-2xl">
+            <div class="text-8xl text-[hsl(220,10%,70%)]/20">🎬</div>
+
+            <div class="absolute top-4 right-4 bg-[hsl(25,95%,65%)] px-4 py-2 rounded-full flex items-center gap-2">
+              <svg class="h-5 w-5 fill-current text-white" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+              <span id="ratingValue" class="text-lg font-bold text-white">0.0</span>
+            </div>
+          </div>
+
+          <!-- ACTION BUTTONS -->
+          <div class="mt-4 space-y-3">
+            <button
+              id="markWatchedBtn"
+              class="w-full bg-[hsl(220,20%,25%)] hover:bg-[hsl(220,20%,25%)]/80 flex items-center justify-center gap-2 py-6 rounded-xl transition-colors">
+              ✔ Mark as Watched
+            </button>
+
+            <button
+              id="addWatchlistBtn"
+              class="w-full border border-[hsl(220,15%,35%)]/50 hover:bg-[hsl(220,15%,30%)]/20 flex items-center justify-center gap-2 py-6 rounded-xl transition-colors">
+              ⭐ Add to Watchlist
+            </button>
+          </div>
+        </div>
+
+        <!-- INFO SECTION -->
+        <div class="flex-1">
+          <h1 id="title" class="text-5xl font-bold mb-4">Loading...</h1>
+
+          <div class="flex items-center gap-4 mb-6">
+            <span id="genreBadge"
+                  class="px-4 py-2 rounded-full bg-red-500/20 text-red-500 font-medium">
+              Genre
+            </span>
+
+            <span id="year" class="text-[hsl(220,10%,70%)]">Year</span>
+          </div>
+
+          <p id="description"
+             class="text-lg text-[hsl(220,10%,70%)] mb-8 leading-relaxed">
+            Loading description...
+          </p>
+
+          <button id="watchBtn"
+                  class="bg-[hsl(25,95%,65%)] hover:bg-[hsl(25,95%,75%)] text-white px-8 py-6 rounded-xl flex items-center gap-2 text-lg font-semibold transition-colors">
+            ▶ Watch Now
+          </button>
+
+          <button id="takeQuizBtn"
+                  class="mt-6 w-full bg-[hsl(25,95%,65%)] hover:bg-[hsl(25,95%,75%)] text-white py-3 rounded-xl font-semibold text-lg transition">
+            Take Quiz for this Title
+          </button>
+        </div>
+      </div>
+
+      <!-- CAST SECTION -->
+      <div class="bg-[hsl(220,20%,20%)]/60 backdrop-blur-lg rounded-2xl p-6 mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Cast</h2>
+        <div id="castContainer" class="flex flex-wrap gap-3">
+          <span class="text-[hsl(220,10%,70%)]">Loading cast...</span>
+        </div>
+      </div>
+
+      <!-- BACK BUTTON -->
+      <a href="home.html"
+         class="fixed bottom-8 left-8 flex items-center gap-2 px-6 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-colors shadow-lg">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="font-medium">Back to Home</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="../js/common.js"></script>
+  <script src="../js/content-detail.js"></script>
+</body>
+</html>

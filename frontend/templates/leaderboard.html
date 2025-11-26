@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - Suggestify</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="bg-[hsl(220,26%,14%)] text-white font-['Poppins']">
+
+    <div class="min-h-screen p-4 md:p-8">
+        <div class="max-w-5xl mx-auto">
+
+            <!-- Header -->
+            <header class="bg-[hsl(220,20%,20%)]/60 backdrop-blur-lg rounded-2xl px-6 py-4 mb-8 shadow-lg">
+                <nav class="flex justify-between items-center">
+                    <div class="flex gap-3 items-center">
+                        <div class="h-12 w-12 rounded-full bg-[hsl(25,95%,65%)] flex items-center justify-center text-2xl font-bold">S</div>
+                        <h1 class="text-xl font-semibold">Suggestify</h1>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="h-10 w-10 rounded-full bg-[hsl(25,95%,65%)] flex items-center justify-center">
+                            <span class="font-semibold">U</span>
+                        </div>
+                        <span id="navUsername" class="font-medium">User</span>
+                    </div>
+                </nav>
+            </header>
+
+            <div class="text-center mb-10">
+                <h1 class="text-5xl font-bold">Leaderboard</h1>
+                <p class="text-lg text-gray-400">Top scores from all players</p>
+            </div>
+
+            <!-- Rankings List -->
+            <div id="leaderboardContainer" class="space-y-3">
+                <!-- JS will insert items -->
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../js/common.js"></script>
+    <script src="../js/leaderboard.js"></script>
+
+</body>
+</html>

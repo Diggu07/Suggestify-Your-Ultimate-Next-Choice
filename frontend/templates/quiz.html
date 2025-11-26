@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Suggestify</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="bg-[hsl(220,26%,14%)] text-white font-['Poppins']">
+    <div class="min-h-screen p-4 md:p-8">
+        <div class="max-w-4xl mx-auto">
+            
+            <!-- Header -->
+            <header class="bg-[hsl(220,20%,20%)]/60 backdrop-blur-lg rounded-2xl px-6 py-4 mb-8 shadow-lg">
+                <nav class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="h-12 w-12 rounded-full bg-[hsl(25,95%,65%)] flex items-center justify-center">
+                            <span class="text-2xl font-bold">S</span>
+                        </div>
+                        <h1 class="text-xl font-semibold">Suggestify</h1>
+                    </div>
+
+                    <button id="profileBtn" class="flex items-center gap-3 hover:bg-[hsl(220,15%,30%)]/20 rounded-full px-4 py-3 transition-colors">
+                        <div class="h-10 w-10 rounded-full bg-[hsl(25,95%,65%)] flex items-center justify-center">
+                            <span class="font-semibold">U</span>
+                        </div>
+                        <span class="font-medium" id="navUsername">User</span>
+                    </button>
+                </nav>
+            </header>
+
+            <!-- Quiz Title -->
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold mb-2" id="quizTitle">Quiz</h1>
+                <p class="text-lg text-[hsl(220,10%,70%)]">Test your knowledge!</p>
+            </div>
+
+            <!-- Quiz Box -->
+            <div class="bg-[hsl(220,20%,20%)]/60 backdrop-blur-lg rounded-2xl p-8 mb-6">
+                
+                <!-- Progress -->
+                <div class="flex items-center justify-between mb-6">
+                    <span class="text-sm text-[hsl(220,10%,70%)]">
+                        Question <span id="currentQ">1</span> of <span id="totalQ">5</span>
+                    </span>
+                    <span id="progressText" class="text-sm font-bold text-[hsl(25,95%,65%)]">0% Complete</span>
+                </div>
+
+                <div class="mb-8 h-2 bg-[hsl(220,15%,30%)] rounded-full overflow-hidden">
+                    <div id="progressBar" class="h-full bg-[hsl(25,95%,65%)] transition-all duration-300"></div>
+                </div>
+
+                <!-- Question -->
+                <div class="bg-[hsl(220,20%,25%)] rounded-2xl p-8 mb-8">
+                    <h2 id="questionText" class="text-2xl font-semibold mb-6">Loading question...</h2>
+
+                    <div id="optionsContainer" class="space-y-4">
+                        <!-- JS will populate -->
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="flex items-center justify-between">
+                    <button id="prevBtn" class="px-8 py-6 rounded-xl opacity-50 cursor-not-allowed font-medium">
+                        Previous
+                    </button>
+
+                    <div id="questionIndicators" class="flex gap-2"></div>
+
+                    <button id="nextBtn" class="px-8 py-6 bg-[hsl(25,95%,65%)] hover:bg-[hsl(25,95%,75%)] text-white rounded-xl font-medium">
+                        Next
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <script src="../js/common.js"></script> -->
+    <script src="../js/quiz.js"></script>
+</body>
+</html>

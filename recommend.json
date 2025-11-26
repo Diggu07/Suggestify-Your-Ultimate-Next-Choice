@@ -1,0 +1,21 @@
+{
+    "UserLikes": {
+        "Ayush": [
+            "Adventure",
+            "Horror"
+        ],
+        "Diggu": [
+            "Science",
+            "Fantasy",
+            "Action"
+        ],
+        "Rehan": [
+            "Mystery",
+            "Comedy"
+        ],
+        "Shreyansh": [
+            "Fantasy",
+            "Romance"
+        ]
+    }
+}

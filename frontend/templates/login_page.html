@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Suggestify</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Your global CSS -->
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+
+  <body class="bg-[hsl(220,26%,14%)] text-white font-['Poppins']">
+    <main class="min-h-screen flex items-center justify-center p-4">
+      <div
+        class="w-full max-w-7xl min-h-[90vh] bg-[hsl(220,20%,20%)]/40 backdrop-blur-xl rounded-[2rem] overflow-hidden shadow-2xl flex"
+      >
+        <!-- Left Section (Form) -->
+        <section
+          class="w-full lg:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-[hsl(220,20%,20%)]/60 backdrop-blur-lg"
+        >
+          <header class="mb-12">
+            <h1 class="text-5xl font-bold mb-3">Welcome back!</h1>
+            <p class="text-lg text-[hsl(220,10%,70%)]">
+              Please enter your credentials to continue
+            </p>
+          </header>
+
+          <!-- LOGIN FORM -->
+          <form id="loginForm" class="space-y-6">
+            <div>
+              <label for="email" class="block text-sm font-medium mb-2"
+                >Email Address</label
+              >
+              <input
+                id="email"
+                type="email"
+                placeholder="your@email.com"
+                class="h-14 w-full rounded-md bg-[hsl(220,15%,30%)]/60 border-none text-white placeholder:text-[hsl(220,10%,70%)]/60 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[hsl(25,95%,65%)]"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="password" class="block text-sm font-medium mb-2"
+                >Password</label
+              >
+              <input
+                id="password"
+                type="password"
+                placeholder="Enter your password"
+                class="h-14 w-full rounded-md bg-[hsl(220,15%,30%)]/60 border-none text-white placeholder:text-[hsl(220,10%,70%)]/60 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[hsl(25,95%,65%)]"
+                required
+              />
+            </div>
+
+            <div class="flex items-center justify-between">
+              <label class="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  id="remember"
+                  class="h-4 w-4 rounded border-[hsl(25,95%,65%)]"
+                />
+                <span class="text-sm text-[hsl(220,10%,70%)]">Remember me</span>
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full h-14 text-lg font-semibold bg-[hsl(25,95%,65%)] hover:bg-[hsl(25,95%,75%)] text-white rounded-2xl transition-colors"
+            >
+              Sign In
+            </button>
+
+            <p class="text-center text-[hsl(220,10%,70%)]">
+              Don't have an account?
+              <a
+                href="#"
+                id="signupLink"
+                class="text-[hsl(25,95%,65%)] hover:text-[hsl(25,95%,75%)] font-semibold transition-colors"
+              >
+                Sign up
+              </a>
+            </p>
+
+            <!-- Placeholder for registration fields (shown when user clicks Sign up) -->
+            <div id="registerFields" class="mt-4 hidden">
+              <!-- Full Name -->
+              <div>
+                <label for="regFullname" class="block text-sm font-medium mb-2"
+                  >Full Name</label
+                >
+                <input
+                  id="regFullname"
+                  type="text"
+                  placeholder="Your full name"
+                  class="h-14 w-full rounded-md bg-[hsl(220,15%,30%)]/60 border-none text-white placeholder:text-[hsl(220,10%,70%)]/60 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[hsl(25,95%,65%)]"
+                />
+              </div>
+
+              <!-- Username -->
+              <div class="mt-4">
+                <label for="regUsername" class="block text-sm font-medium mb-2"
+                  >Username</label
+                >
+                <input
+                  id="regUsername"
+                  type="text"
+                  placeholder="example123"
+                  class="h-14 w-full rounded-md bg-[hsl(220,15%,30%)]/60 border-none text-white placeholder:text-[hsl(220,10%,70%)]/60 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[hsl(25,95%,65%)]"
+                />
+              </div>
+
+              <!-- Email -->
+              <div class="mt-4">
+                <label for="regEmail" class="block text-sm font-medium mb-2"
+                  >Email Address</label
+                >
+                <input
+                  id="regEmail"
+                  type="email"
+                  placeholder="your@email.com"
+                  class="h-14 w-full rounded-md bg-[hsl(220,15%,30%)]/60 border-none text-white placeholder:text-[hsl(220,10%,70%)]/60 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[hsl(25,95%,65%)]"
+                />
+              </div>
+
+              <!-- Password -->
+              <div class="mt-4">
+                <label for="regPassword" class="block text-sm font-medium mb-2"
+                  >Password</label
+                >
+                <input
+                  id="regPassword"
+                  type="password"
+                  placeholder="Create a password"
+                  class="h-14 w-full rounded-md bg-[hsl(220,15%,30%)]/60 border-none text-white placeholder:text-[hsl(220,10%,70%)]/60 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[hsl(25,95%,65%)]"
+                />
+              </div>
+
+              <div class="mt-4">
+                <button
+                  id="registerBtn"
+                  type="button"
+                  class="w-full h-14 text-lg font-semibold bg-[hsl(25,95%,65%)] hover:bg-[hsl(25,95%,75%)] text-white rounded-2xl transition-colors"
+                >
+                  Create account
+                </button>
+              </div>
+
+              <div class="text-center mt-3">
+                <a
+                  href="#"
+                  id="cancelRegister"
+                  class="text-sm text-[hsl(220,10%,70%)]"
+                  >Cancel</a
+                >
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <!-- Right Section (Image) -->
+        <section class="w-1/2 relative overflow-hidden">
+          <!-- Background Image -->
+          <img
+            src="/assets/bg.jpg"
+            alt="Background Visual"
+            class="absolute inset-0 w-full h-full object-cover scale-110 opacity-70"
+          />
+
+          <!-- Cinematic Dark Gradient -->
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-black/70 via-black/40 to-transparent"
+          ></div>
+
+          <!-- Spotlight Glow -->
+          <div class="absolute inset-0 pointer-events-none">
+            <div
+              class="absolute w-96 h-96 bg-[hsl(25,95%,65%)]/20 rounded-full blur-3xl top-1/3 left-1/3"
+            ></div>
+          </div>
+
+          <!-- Glass Highlight Panel -->
+          <div
+            class="absolute bottom-12 left-12 backdrop-blur-md bg-white/5 px-8 py-6 rounded-2xl border border-white/10 shadow-xl"
+          >
+            <h2 class="text-3xl font-bold text-white mb-2 drop-shadow-md">
+              Stream Smarter
+            </h2>
+            <p class="text-gray-300 text-sm max-w-sm leading-relaxed">
+              Discover personalized movies, TV shows & anime—all tailored for
+              you.
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- LOGIN SCRIPT -->
+    <script>
+      const API_BASE = "http://localhost:5000";
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const email = document.getElementById("email").value.trim();
+          const password = document.getElementById("password").value.trim();
+
+          if (!email || !password) {
+            showToast("Please fill in all fields", "error");
+            return;
+          }
+
+          try {
+            showToast("Logging in...", "success");
+
+            const res = await fetch(`${API_BASE}/api/login`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                username: email,
+                password: password,
+              }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+              showToast(data.error || "Invalid email or password", "error");
+              return;
+            }
+            // store username for other pages that expect it
+            localStorage.setItem("username", data.username || email);
+            localStorage.setItem("user", JSON.stringify(data));
+            showToast("Login successful!", "success");
+
+            setTimeout(() => {
+              window.location.href = "/templates/home.html";
+            }, 800);
+          } catch (err) {
+            showToast("Network error", "error");
+            console.error(err);
+          }
+        });
+
+      // Signup/register toggle and handler
+      const signupLink = document.getElementById("signupLink");
+      const registerFields = document.getElementById("registerFields");
+      const registerBtn = document.getElementById("registerBtn");
+      const cancelRegister = document.getElementById("cancelRegister");
+
+      if (signupLink)
+        signupLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          registerFields.classList.remove("hidden");
+          // scroll into view on small screens
+          registerFields.scrollIntoView({ behavior: "smooth" });
+        });
+
+      if (cancelRegister)
+        cancelRegister.addEventListener("click", (e) => {
+          e.preventDefault();
+          registerFields.classList.add("hidden");
+        });
+
+      if (registerBtn)
+        registerBtn.addEventListener("click", async () => {
+          const email = document.getElementById("regEmail").value.trim();
+          const password = document.getElementById("regPassword").value.trim();
+          if (!email || !password) {
+            showToast("Please fill all registration fields", "error");
+            return;
+          }
+
+          try {
+            showToast("Creating account...", "success");
+
+            const fullname = document
+              .getElementById("regFullname")
+              .value.trim();
+            const username = document
+              .getElementById("regUsername")
+              .value.trim();
+            const email = document.getElementById("regEmail").value.trim();
+            const password = document
+              .getElementById("regPassword")
+              .value.trim();
+
+            if (!fullname || !username || !email || !password) {
+              showToast("Please fill all fields", "error");
+              return;
+            }
+
+            const res = await fetch(`${API_BASE}/api/register`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                fullname: fullname,
+                username: username,
+                email: email,
+                password: password,
+              }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+              showToast(data.error || "Registration failed", "error");
+              return;
+            }
+
+            showToast("Account created — please sign in", "success");
+
+            // hide registration and prefill login fields
+            registerFields.classList.add("hidden");
+            document.getElementById("email").value = username; // OR email
+            document.getElementById("password").value = "";
+          } catch (err) {
+            console.error(err);
+            showToast("Network error", "error");
+          }
+        });
+
+      function showToast(message, type = "success") {
+        const toast = document.createElement("div");
+        toast.className = `
+                fixed top-5 right-5 px-6 py-3 rounded-lg shadow-lg z-50
+                ${type === "success" ? "bg-green-500" : "bg-red-500"}
+                text-white font-medium transition-all
+            `;
+        toast.style.opacity = "0";
+        toast.style.transform = "translateY(-10px)";
+        toast.innerText = message;
+
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+          toast.style.opacity = "1";
+          toast.style.transform = "translateY(0)";
+        }, 30);
+
+        setTimeout(() => {
+          toast.style.opacity = "0";
+          toast.style.transform = "translateY(-10px)";
+          setTimeout(() => toast.remove(), 300);
+        }, 2000);
+      }
+    </script>
+  </body>
+</html>
