@@ -241,9 +241,14 @@
               return;
             }
             // store username for other pages that expect it
-            localStorage.setItem("username", data.username || email);
-            localStorage.setItem("user", JSON.stringify(data));
-            showToast("Login successful!", "success");
+            // store username AND token for watchlist API
+localStorage.setItem("username", data.username);
+localStorage.setItem("user", JSON.stringify(data));
+
+// TOKEN REQUIRED FOR WATCHLIST
+localStorage.setItem("token", data.username);
+
+showToast("Login successful!", "success");
 
             setTimeout(() => {
               window.location.href = "/templates/home.html";

@@ -20,33 +20,55 @@
   <div class="min-h-screen p-4 md:p-8">
     <div class="max-w-7xl mx-auto">
 
-      <!-- HEADER -->
       <header class="bg-[hsl(220,20%,20%)]/60 backdrop-blur-lg rounded-2xl px-6 py-4 mb-8 shadow-lg">
-        <nav class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="h-12 w-12 rounded-full bg-[hsl(25,95%,65%)] flex items-center justify-center">
-              <span class="text-2xl font-bold">S</span>
-            </div>
-            <h1 class="text-xl font-semibold">Suggestify</h1>
-          </div>
+  <nav class="flex items-center justify-between">
+    
+    <!-- LEFT LOGO -->
+    <div class="flex items-center gap-3">
+      <div class="h-12 w-12 rounded-full bg-[hsl(25,95%,65%)] flex items-center justify-center">
+        <span class="text-2xl font-bold">S</span>
+      </div>
+      <h1 class="text-xl font-semibold">Suggestify</h1>
+    </div>
 
-          <div class="relative">
-            <button
-              id="profileBtn"
-              class="flex items-center gap-3 hover:bg-[hsl(220,15%,30%)]/20 rounded-full px-4 py-3 transition-colors"
-            >
-              <div class="h-10 w-10 rounded-full bg-[hsl(25,95%,65%)] flex items-center justify-center">
-                <span class="font-semibold">AM</span>
-              </div>
-              <span class="font-medium">User</span>
-              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-          </div>
-        </nav>
-      </header>
+    <!-- RIGHT USER DROPDOWN -->
+    <div class="relative">
+      <button
+        id="userDropdownBtn"
+        class="flex items-center gap-3 hover:bg-[hsl(220,15%,30%)]/20 rounded-full px-4 py-3 transition-colors"
+      >
+        <!-- USER ICON -->
+        <div id="navUserIcon" class="h-10 w-10 rounded-full bg-[hsl(25,95%,65%)] flex items-center justify-center">
+          <span class="font-semibold">U</span>
+        </div>
+
+        <!-- USERNAME -->
+        <span id="navUsername" class="font-medium">User</span>
+
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      <!-- DROPDOWN MENU -->
+      <div
+        id="userDropdownMenu"
+        class="hidden absolute right-0 mt-2 w-40 bg-[#1c2534] text-white rounded-lg shadow-lg overflow-hidden"
+      >
+        <a href="/templates/profile.html"
+           class="block px-4 py-2 hover:bg-gray-700 transition">View Profile</a>
+
+        <button id="logoutBtn"
+                class="block w-full text-left px-4 py-2 text-red-400 hover:bg-gray-700 transition">
+          Logout
+        </button>
+      </div>
+    </div>
+
+  </nav>
+</header>
+
 
       <!-- CONTENT SECTION -->
       <div class="flex flex-col lg:flex-row gap-8 mb-8">
@@ -99,10 +121,10 @@
             Loading description...
           </p>
 
-          <button id="watchBtn"
+          <!-- <button id="watchBtn"
                   class="bg-[hsl(25,95%,65%)] hover:bg-[hsl(25,95%,75%)] text-white px-8 py-6 rounded-xl flex items-center gap-2 text-lg font-semibold transition-colors">
             ▶ Watch Now
-          </button>
+          </button> -->
 
           <button id="takeQuizBtn"
                   class="mt-6 w-full bg-[hsl(25,95%,65%)] hover:bg-[hsl(25,95%,75%)] text-white py-3 rounded-xl font-semibold text-lg transition">

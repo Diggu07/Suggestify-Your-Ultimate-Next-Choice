@@ -49,7 +49,8 @@ public:
 
     // ----- Display pretty results -----
     void displayRecommendations(const std::string& username,
-                                const std::string& mediaType);
+        const std::string& mediaType);
+        
 };
 
 #endif

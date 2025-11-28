@@ -407,3 +407,10 @@ textarea:focus {
 .bg-pan {
   animation: bg-pan 15s ease-in-out infinite alternate;
 }
+#favStatWrapper,
+#statFavLabel {
+    display: none !important;
+}
+#favoritesStatBlock {
+    display: none !important;
+}

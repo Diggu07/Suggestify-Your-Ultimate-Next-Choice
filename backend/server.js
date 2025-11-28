@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import crypto from "crypto";
 import path from "path";
 import { fileURLToPath } from "url";
+import ollama from "ollama";
 
 const app = express();
 app.use(cors());
@@ -55,8 +56,6 @@ async function init() {
 }
 init().catch((err) => console.error("Mongo init error:", err));
 
-
-
 // ============================================================================
 //                               WEB AUTH (LOGIN & REGISTER)
 // ============================================================================
@@ -86,7 +85,7 @@ app.post("/api/register", async (req, res) => {
       pushNotifications: true,
       autoPlayTrailers: true,
       darkMode: true,
-    }
+    },
   });
 
   res.json({ status: "ok" });
@@ -98,10 +97,7 @@ app.post("/api/login", async (req, res) => {
   const hash = sha256hex(password);
 
   const user = await usersCollection.findOne({
-    $and: [
-      { password: hash },
-      { $or: [{ username }, { email: username }] }
-    ]
+    $and: [{ password: hash }, { $or: [{ username }, { email: username }] }],
   });
 
   if (!user) return res.status(401).json({ error: "Invalid login" });
@@ -109,11 +105,9 @@ app.post("/api/login", async (req, res) => {
   res.json({
     status: "ok",
     username: user.username,
-    email: user.email
+    email: user.email,
   });
 });
-
-
 
 // ============================================================================
 //                         MOVIES / TV / ANIME / DETAILS
@@ -139,7 +133,6 @@ app.get("/api/genres", async (req, res) => {
   }
 });
 
-
 // ----------------------------------------
 // MOVIES
 // ----------------------------------------
@@ -152,16 +145,18 @@ app.get("/api/movies", async (req, res) => {
 
     const items = await contentCollection.find(filter).toArray();
 
-    res.json(items.map((m) => ({
-      id: m.mediaId || m._id,
-      mediaId: m.mediaId || m._id,
-      title: m.title,
-      poster: m.posterUrl,
-      genres: m.genres || [m.genre],
-      description: m.overview || m.description,
-      year: m.year,
-      rating: m.rating,
-    })));
+    res.json(
+      items.map((m) => ({
+        id: m.mediaId || m._id,
+        mediaId: m.mediaId || m._id,
+        title: m.title,
+        poster: m.posterUrl,
+        genres: m.genres || [m.genre],
+        description: m.overview || m.description,
+        year: m.year,
+        rating: m.rating,
+      }))
+    );
   } catch (err) {
     console.error("MOVIES ERROR:", err);
     res.status(500).json({ error: "movies error" });
@@ -180,16 +175,18 @@ app.get("/api/tv", async (req, res) => {
 
     const items = await contentCollection.find(filter).toArray();
 
-    res.json(items.map((m) => ({
-      id: m.mediaId || m._id,
-      mediaId: m.mediaId || m._id,
-      title: m.title,
-      poster: m.posterUrl,
-      genres: m.genres || [m.genre],
-      description: m.overview || m.description,
-      year: m.year,
-      rating: m.rating,
-    })));
+    res.json(
+      items.map((m) => ({
+        id: m.mediaId || m._id,
+        mediaId: m.mediaId || m._id,
+        title: m.title,
+        poster: m.posterUrl,
+        genres: m.genres || [m.genre],
+        description: m.overview || m.description,
+        year: m.year,
+        rating: m.rating,
+      }))
+    );
   } catch (err) {
     console.error("TV ERROR:", err);
     res.status(500).json({ error: "tv error" });
@@ -208,22 +205,23 @@ app.get("/api/anime", async (req, res) => {
 
     const items = await contentCollection.find(filter).toArray();
 
-    res.json(items.map((m) => ({
-      id: m.mediaId || m._id,
-      mediaId: m.mediaId || m._id,
-      title: m.title,
-      poster: m.posterUrl,
-      genres: m.genres || [m.genre],
-      description: m.overview || m.description,
-      year: m.year,
-      rating: m.rating,
-    })));
+    res.json(
+      items.map((m) => ({
+        id: m.mediaId || m._id,
+        mediaId: m.mediaId || m._id,
+        title: m.title,
+        poster: m.posterUrl,
+        genres: m.genres || [m.genre],
+        description: m.overview || m.description,
+        year: m.year,
+        rating: m.rating,
+      }))
+    );
   } catch (err) {
     console.error("ANIME ERROR:", err);
     res.status(500).json({ error: "anime error" });
   }
 });
-
 
 // ----------------------------------------
 // CONTENT DETAILS (FIXED)
@@ -235,7 +233,7 @@ app.get("/api/details", async (req, res) => {
     if (!id) return res.status(400).json({ error: "id required" });
 
     // Extract numeric TMDB ID
-    let numericId = parseInt(id.split("_").find(x => /^\d+$/.test(x)) || id);
+    let numericId = parseInt(id.split("_").find((x) => /^\d+$/.test(x)) || id);
 
     let doc = null;
 
@@ -247,7 +245,7 @@ app.get("/api/details", async (req, res) => {
       { mediaId: "tmdb_tv_" + numericId },
       { mediaId: "tmdb_anime_" + numericId },
       { tmdbId: numericId },
-      { tmdbId: String(numericId) }
+      { tmdbId: String(numericId) },
     ];
 
     for (let q of tryQueries) {
@@ -257,7 +255,7 @@ app.get("/api/details", async (req, res) => {
 
     // Try ObjectId lookup safely
     try {
-      doc = doc || await contentCollection.findOne({ _id: new ObjectId(id) });
+      doc = doc || (await contentCollection.findOne({ _id: new ObjectId(id) }));
     } catch {}
 
     if (!doc) {
@@ -265,26 +263,58 @@ app.get("/api/details", async (req, res) => {
       return res.status(404).json({ error: "not found" });
     }
 
+    // --------------------------------------------------------------------
+    // ⭐ AI DESCRIPTION GENERATION USING OLLAMA (FREE / LOCAL)
+    // --------------------------------------------------------------------
+
+    let aiDescription = null;
+
+    try {
+      const prompt = `
+Write a short English description (4-5 sentences) for this title:
+
+Title: ${doc.title}
+Genre: ${doc.genres?.join(", ")}
+Year: ${doc.year}
+Cast: ${doc.mainCast?.slice(0, 4).join(", ")}
+
+Make it engaging and spoiler-free.
+      `;
+
+      const aiRes = await ollama.generate({
+        model: "llama3.1", // or "mistral" if you prefer smaller model
+        prompt: prompt,
+      });
+
+      aiDescription = aiRes.response.trim();
+    } catch (err) {
+      console.error("❌ AI Description Error:", err);
+    }
+
+    // --------------------------------------------------------------------
+    // ⭐ FINAL RESPONSE
+    // --------------------------------------------------------------------
+
     res.json({
       id: doc.mediaId || doc._id,
       mediaId: doc.mediaId || doc._id,
       title: doc.title,
       poster: doc.posterUrl,
       genres: doc.genres || [doc.genre],
-      description: doc.overview || doc.description,
+      description:
+        aiDescription ||
+        doc.overview ||
+        doc.description ||
+        "No description available",
       year: doc.year || "N/A",
       rating: doc.rating || "N/A",
-      cast: doc.mainCast || []
+      cast: doc.mainCast || [],
     });
-
   } catch (err) {
     console.error("DETAILS ERROR:", err);
     res.status(500).json({ error: "details error" });
   }
 });
-
-
-
 
 // ============================================================================
 //                           C++ AUTH / PROFILE
@@ -295,10 +325,7 @@ app.post("/cpp/login", async (req, res) => {
   const hash = sha256hex(password);
 
   const user = await usersCollection.findOne({
-    $and: [
-      { password: hash },
-      { $or: [{ username }, { email: username }] }
-    ]
+    $and: [{ password: hash }, { $or: [{ username }, { email: username }] }],
   });
 
   if (!user) return res.status(401).json({ error: "invalid login" });
@@ -306,7 +333,7 @@ app.post("/cpp/login", async (req, res) => {
   res.json({
     status: "ok",
     username: user.username,
-    email: user.email
+    email: user.email,
   });
 });
 
@@ -332,8 +359,8 @@ app.post("/cpp/register", async (req, res) => {
       emailNotifications: true,
       pushNotifications: false,
       autoPlayTrailers: true,
-      darkMode: true
-    }
+      darkMode: true,
+    },
   });
 
   res.json({ status: "ok" });
@@ -354,7 +381,9 @@ app.post("/cpp/profile/update", async (req, res) => {
   let setObj = {};
 
   if (updates.newUsername) {
-    const exists = await usersCollection.findOne({ username: updates.newUsername });
+    const exists = await usersCollection.findOne({
+      username: updates.newUsername,
+    });
     if (exists) return res.status(409).json({ error: "username exists" });
     setObj.username = updates.newUsername;
   }
@@ -381,7 +410,6 @@ app.post("/cpp/profile/delete", async (req, res) => {
   res.json({ deleted: true });
 });
 
-
 // ============================================================================
 //                              C++ QUIZ
 // ============================================================================
@@ -389,10 +417,12 @@ app.get("/cpp/quiz", async (req, res) => {
   const { type, genre, limit } = req.query;
   const lim = parseInt(limit) || 5;
 
-  const questions = await questionsCollection.aggregate([
-    { $match: { category: type, genre } },
-    { $sample: { size: lim } }
-  ]).toArray();
+  const questions = await questionsCollection
+    .aggregate([
+      { $match: { category: type, genre } },
+      { $sample: { size: lim } },
+    ])
+    .toArray();
 
   res.json(questions);
 });
@@ -402,9 +432,7 @@ app.get("/cpp/quiz/byMedia", async (req, res) => {
 
   if (!mediaId) return res.status(400).json({ error: "mediaId required" });
 
-  const questions = await questionsCollection
-    .find({ mediaId })
-    .toArray();
+  const questions = await questionsCollection.find({ mediaId }).toArray();
 
   res.json(questions);
 });
@@ -422,7 +450,7 @@ app.post("/cpp/submit", async (req, res) => {
     username,
     score,
     total: answers.length,
-    date: new Date()
+    date: new Date(),
   });
 
   await leaderboardCollection.updateOne(
@@ -433,7 +461,6 @@ app.post("/cpp/submit", async (req, res) => {
 
   res.json({ score, total: answers.length });
 });
-
 
 // ============================================================================
 //                           C++ LEADERBOARD
@@ -477,7 +504,6 @@ app.post("/cpp/leaderboard/rename", async (req, res) => {
   res.json({ success: true });
 });
 
-
 // ============================================================================
 //                           WEB PROFILE MGMT
 // ============================================================================
@@ -487,8 +513,32 @@ app.get("/api/user", async (req, res) => {
   const user = await usersCollection.findOne({ username });
   if (!user) return res.status(404).json({ error: "user not found" });
 
+  // ⭐ Auto-fix stats using actual array lengths
+  const correctWatchlist = user.watchlist?.length || 0;
+  const correctCompleted = user.watched?.length || 0;
+  const correctFavorites = user.favorites?.length || 0;
+
+  // ⭐ Update DB if values are wrong
+  await usersCollection.updateOne(
+    { username },
+    {
+      $set: {
+        "stats.watchlist": correctWatchlist,
+        "stats.completed": correctCompleted,
+        "stats.favorites": correctFavorites
+      }
+    }
+  );
+
+  // ⭐ Also correct the values being returned
+  user.stats.watchlist = correctWatchlist;
+  user.stats.completed = correctCompleted;
+  user.stats.favorites = correctFavorites;
+
   res.json(user);
 });
+
+
 
 app.post("/api/user/update", async (req, res) => {
   const { username, newUsername, fullname, email } = req.body;
@@ -520,6 +570,143 @@ app.post("/api/user/password", async (req, res) => {
   res.json({ success: true });
 });
 
+// ============================================================================
+//                                WATCHLIST API
+// ============================================================================
+
+// Add to Watchlist
+app.post("/api/watchlist/add", async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    console.log("Auth Header received:", authHeader); // Debug log
+
+    if (!authHeader) {
+      return res.status(401).json({ success: false, message: "No token" });
+    }
+
+    // Remove 'Bearer ' prefix if present
+    const username = authHeader.replace("Bearer ", "").trim();
+    console.log("Username extracted:", username); // Debug log
+
+    const { mediaId, title, poster, type } = req.body;
+    console.log("Request body:", req.body); // Debug log
+
+    if (!mediaId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "mediaId required" });
+    }
+
+    const user = await usersCollection.findOne({ username });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    // Check for duplicates
+    const exists = user.watchlist?.find((item) => item.mediaId == mediaId);
+    if (exists) {
+      return res.json({ success: true, message: "Already in watchlist" });
+    }
+
+    await usersCollection.updateOne(
+      { username },
+      {
+        $push: {
+          watchlist: {
+            mediaId,
+            title,
+            poster,
+            type,
+            addedAt: new Date(),
+          },
+        },
+        $inc: { "stats.watchlist": 1 },
+      }
+    );
+
+    res.json({ success: true, message: "Added to watchlist" });
+  } catch (err) {
+    console.error("WATCHLIST ADD ERROR:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+// Get Watchlist
+app.get("/api/watchlist/get", async (req, res) => {
+  try {
+    const { username } = req.query;
+    if (!username) return res.status(400).json({ error: "username required" });
+
+    const user = await usersCollection.findOne({ username });
+    if (!user) return res.status(404).json({ error: "user not found" });
+
+    res.json({ items: user.watchlist || [] });
+  } catch (err) {
+    console.error("WATCHLIST GET ERROR:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Remove from watchlist (optional)
+app.post("/api/watchlist/remove", async (req, res) => {
+  try {
+    const { username, mediaId } = req.body;
+    if (!username || !mediaId) return res.status(400).json({ success: false });
+
+    await usersCollection.updateOne(
+      { username },
+      {
+        $pull: { watchlist: { mediaId } },
+        $inc: { "stats.watchlist": -1 }, // ⭐ NEW: decrease counter
+      }
+    );
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error("WATCHLIST REMOVE ERROR:", err);
+    res.status(500).json({ success: false });
+  }
+});
+
+// ============================================================================
+// MARK AS WATCHED (FIXED)
+// ============================================================================
+app.post("/api/user/mark-watched", async (req, res) => {
+  try {
+    const username = req.headers.authorization?.replace("Bearer ", "").trim();
+    const { mediaId, title, poster, type } = req.body;
+
+    if (!username) {
+      return res.status(400).json({ error: "Missing username" });
+    }
+
+    if (!mediaId) {
+      return res.status(400).json({ error: "Missing mediaId" });
+    }
+
+    await usersCollection.updateOne(
+      { username },
+      {
+        $addToSet: {
+          watched: {
+            mediaId,
+            title,
+            poster,
+            type,
+            watchedAt: new Date(),
+          },
+        },
+      }
+    );
+
+    return res.json({ success: true });
+  } catch (err) {
+    console.error("❌ Mark Watched Error:", err);
+    return res.status(500).json({ error: "Server error" });
+  }
+});
 
 // ============================================================================
 // START SERVER
